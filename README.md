@@ -28,3 +28,10 @@ A few more requirements
  * Good practices for software development are always appreciated. Tests, even more.
  * Delivery Date: Around 10 working days.
  * If anything is not defined or clear in this document, then feel free to be creative and define it yourself! Just remember to document it for us.
+
+
+### What I have done
+ * Using a Docker as a dev container, because this app will be testet on a debian based OS
+   * Example by: https://jolthgs.wordpress.com/2019/09/25/create-a-debian-container-in-docker-for-development/
+     * Open cmd: ```docker pull debian:10-slim``` 
+     * List running containers: ```docker ps -a```
