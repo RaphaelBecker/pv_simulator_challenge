@@ -17,7 +17,7 @@ def get_power(seconds: int) -> float:
     else:
         # start inverted parable:   8*60*60 = 28800 sec
         # end inverted parable:     20*60*60 = 72000 sec
-        val = round((0.000021 * (- ((seconds - 50400) * (seconds - 50400))) + 9000),2)
+        val = round((0.000010 * (- ((seconds - 53000) * (seconds - 53000))) + 3250), 2)
         if val < 0:
             return 0
         else:
