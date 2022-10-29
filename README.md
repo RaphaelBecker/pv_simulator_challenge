@@ -29,9 +29,22 @@ A few more requirements
  * Delivery Date: Around 10 working days.
  * If anything is not defined or clear in this document, then feel free to be creative and define it yourself! Just remember to document it for us.
 
+### RabbitMQ
+Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
+ * Routing key and binding key: Exchange is bound via routing key to a queue
+ * Exchange type Topic: Queue receives messages from exchange if routing keys partially match binding key
+ * Exchange type Fanout: If a queue is bound to a exchange, it will receive the message regardless of any key
+ * Exchange type Header: Allows rout messages based on header values   
 
 ### What I have done
+ * Kick start from: https://www.rabbitmq.com/tutorials/tutorial-three-python.html
  * Using a Docker as a dev container, because this app will be testet on a debian based OS
    * Example by: https://jolthgs.wordpress.com/2019/09/25/create-a-debian-container-in-docker-for-development/
      * Open cmd: ```docker pull debian:10-slim``` 
      * List running containers: ```docker ps -a```
+     * Stopped because too much effort
+
+### Installations regarding RabbitMQ:
+ * RabbitMQ client lib for python: ```pip install pika``` 
+ * Docker Container for RabbitMQ installation: ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
+ * In the browser, the rabbitMQ management can be opened via url: ```http://localhost:15672/#/```

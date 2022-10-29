@@ -1,0 +1,33 @@
+import sys
+import time
+
+# 1 day = 24h -> 24h*60min*60sec =
+
+out_of_bound_error = ValueError(f"ValueError: One day has 0 till 86400 seconds. Input value out of bound.")
+type_error = TypeError(f"TypeError: Seconds not of type int.")
+
+
+class SolarPanel:
+    def __init__(self, panel_id, max_power=3250):
+        self.panel_id = panel_id
+        self.max_power = max_power
+
+    def get_power(self, seconds: int) -> float:
+        if not type(seconds) == int:
+            raise type_error
+        if not (0 <= seconds <= (24 * 60 * 60)):
+            raise out_of_bound_error
+        # morning time: from 0am till 5am return 0
+        if 0 <= seconds <= (5 * 60 * 60):
+            return 0
+        # night time: from 9pm till 12pm return 0
+        elif (21 * 60 * 60) <= seconds <= (24 * 60 * 60):
+            return 0
+        else:
+            # start inverted parable:   8*60*60 = 28800 sec
+            # end inverted parable:     20*60*60 = 72000 sec
+            val = round((0.000010 * (- ((seconds - 53000) * (seconds - 53000))) + self.max_power), 2)
+            if val < 0:
+                return 0
+            else:
+                return val
