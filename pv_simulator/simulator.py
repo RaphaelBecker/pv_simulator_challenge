@@ -2,7 +2,6 @@
 import csv
 import json
 import os
-import time
 
 import solar_pannel
 import listener
@@ -21,16 +20,15 @@ def load_csv() -> []:
     return messages
 
 
-def save_to_csv(messages: [tuple]):
+def save_to_csv(messages: [dict]):
     filename = 'messages.csv'
-    with open(filename, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(messages)
+    with open(filename, 'w', encoding='utf8', newline='') as output_file:
+        fc = csv.DictWriter(output_file,
+                            fieldnames=messages[0].keys(),
 
-
-def computer_panel_meter_diff(timestamp, meter_value):
-    # positive if enough energy is produced by the panel:
-    return meter_value - solar_pannel.get_solar_power(timestamp)
+                            )
+        fc.writeheader()
+        fc.writerows(messages)
 
 
 print("Started simulator!")
@@ -42,7 +40,7 @@ while True:
                            "\n * a to show received messages "
                            "\n * b for delete received messages "
                            "\n * c compute solar panel - meter difference "
-                           "\n * d for saving messages to csv "
+                           "\n * d save messages to csv "
                            "\n")
         if Listener.receiving:
             print("Listener receiving messages right now. Waiting for end of batch, please wait!")
@@ -57,7 +55,17 @@ while True:
             if user_input == "c":
                 for message in Listener.received_messages:
                     message_dict = json.loads(message.decode())
-                    print(f"ts: {message_dict['timestamp']} {round(computer_panel_meter_diff(message_dict['timestamp'], message_dict['meter_value']), 2)}")
+                    panel_value = solar_pannel.get_solar_power(message_dict['timestamp'])
+                    panel_meter_diff = round((panel_value - message_dict['meter_value']), 2)
+                    print(f"ts: {message_dict['timestamp']} diff: {panel_meter_diff}")
             if user_input == "d":
+                cast_buffer = []
+                for message in Listener.received_messages:
+                    message_dict = json.loads(message.decode())
+                    panel_value = round(solar_pannel.get_solar_power(message_dict['timestamp']), 2)
+                    panel_meter_diff = round((panel_value - message_dict['meter_value']), 2)
+                    message_dict['panel_value'] = panel_value
+                    message_dict['panel_meter_diff'] = panel_meter_diff
+                    cast_buffer.append(message_dict)
+                save_to_csv(cast_buffer)
                 print("dumped to csv!")
-

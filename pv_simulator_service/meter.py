@@ -28,7 +28,7 @@ def simulate(min_consumption: int, max_consumption: int, from_timestamp=0, to_ti
 
 
 class Meter:
-    def __init__(self, meter_id: str, exchange: str, min_consumption=0, max_consumption=3250):
+    def __init__(self, meter_id: str, exchange: str, min_consumption=0, max_consumption=9000):
         self.meter_id = meter_id
         self.min_consumption = min_consumption
         self.max_consumption = max_consumption
