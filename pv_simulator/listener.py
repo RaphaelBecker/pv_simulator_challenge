@@ -1,25 +1,30 @@
-#!/usr/bin/env python
+import datetime
 import pika
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
-
-channel.exchange_declare(exchange='logs', exchange_type='fanout')
-
-result = channel.queue_declare(queue='', exclusive=True)
-queue_name = result.method.queue
-
-channel.queue_bind(exchange='logs', queue=queue_name)
-
-print(' [*] Waiting for logs. To exit press CTRL+C')
 
 
-def callback(ch, method, properties, body):
-    print(" [x] %r" % body)
+class Listener:
+    def __init__(self, exchange, exchange_type):
+        self.received_messages = []
+        self.exchange = exchange
+        self.exchange_type = exchange_type
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host='localhost'))
+        self.channel = self.connection.channel()
+        self.channel.exchange_declare(exchange=self.exchange, exchange_type=self.exchange_type)
+        result = self.channel.queue_declare(queue='', exclusive=True)
+        self.queue_name = result.method.queue
+        self.channel.queue_bind(exchange=self.exchange, queue=self.queue_name)
+        print(f"Exchange created: {self.exchange}")
 
+    def callback(self, ch, method, properties, body):
+        print(" [x] %r" % body)
+        self.received_messages.append(body)
+        print(self.received_messages)
 
-channel.basic_consume(
-    queue=queue_name, on_message_callback=callback, auto_ack=True)
-
-channel.start_consuming()
+    def listen_for_packages(self):
+        print(f"[*] Waiting for messages on exchange: {self.exchange} exchange_type: {self.exchange_type}. To exit press CTRL+C")
+        self.channel.basic_consume(
+            queue=self.queue_name, on_message_callback=self.callback, auto_ack=True)
+        self.channel.start_consuming()
+        print("started consuming")

@@ -1,15 +1,14 @@
 import sys
 import time
 
-# 1 day = 24h -> 24h*60min*60sec =
+# 1 day = 24h -> 24h*60min*60sec
 
 out_of_bound_error = ValueError(f"ValueError: One day has 0 till 86400 seconds. Input value out of bound.")
 type_error = TypeError(f"TypeError: Seconds not of type int.")
 
 
 class SolarPanel:
-    def __init__(self, panel_id, max_power=3250):
-        self.panel_id = panel_id
+    def __init__(self, max_power=3250):
         self.max_power = max_power
 
     def get_power(self, seconds: int) -> float:

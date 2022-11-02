@@ -1,23 +1,36 @@
+#!/usr/bin/env python
 import csv
 import os
+import solar_pannel
+import listener
 
 
 def load_csv() -> []:
-    no_matching_radars = []
-    filename = 'noMatchingRadars.csv'
+    messages = []
+    filename = 'messages.csv'
     if os.path.exists(filename):
         with open(filename, 'r', newline='') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             for rows in reader:
-                no_matching_radars.append(rows)
-                no_matching_radars = no_matching_radars[0]
+                messages.append(rows)
     else:
         save_to_csv([])
-    return no_matching_radars
+    return messages
 
 
-def save_to_csv(latest_no_matching_radars):
-    filename = 'noMatchingRadars.csv'
+def save_to_csv(messages: [tuple]):
+    filename = 'messages.csv'
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(latest_no_matching_radars)
+        writer.writerow(messages)
+
+
+
+print("Started simulator!")
+print("Enter meter id:")
+print("Enter meter exchange:")
+SolarPanel = solar_pannel.SolarPanel()
+Listener = listener.Listener("meter_01_exchange", "fanout")
+Listener.listen_for_packages()
+print(Listener.received_messages)
+

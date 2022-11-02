@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from pv_simulator_service import publisher
 
 
@@ -27,11 +28,11 @@ def simulate(min_consumption: int, max_consumption: int, from_timestamp=0, to_ti
 
 
 class Meter:
-    def __init__(self, meter_id: int, min_consumption=0, max_consumption=3250):
+    def __init__(self, meter_id: str, exchange: str, min_consumption=0, max_consumption=3250):
         self.meter_id = meter_id
         self.min_consumption = min_consumption
         self.max_consumption = max_consumption
-        self.publisher = publisher.Publisher()
+        self.publisher = publisher.Publisher(exchange=exchange, exchange_type="fanout")
 
     def publish_simulated_day(self, step):
         simulated_day = simulate(self.min_consumption, self.max_consumption, step)
