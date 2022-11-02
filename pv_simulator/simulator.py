@@ -7,19 +7,6 @@ import solar_pannel
 import listener
 
 
-def load_csv() -> []:
-    messages = []
-    filename = 'messages.csv'
-    if os.path.exists(filename):
-        with open(filename, 'r', newline='') as csvfile:
-            reader = csv.reader(csvfile, delimiter=',')
-            for rows in reader:
-                messages.append(rows)
-    else:
-        save_to_csv([])
-    return messages
-
-
 def save_to_csv(messages: [dict]):
     filename = 'messages.csv'
     with open(filename, 'w', encoding='utf8', newline='') as output_file:
