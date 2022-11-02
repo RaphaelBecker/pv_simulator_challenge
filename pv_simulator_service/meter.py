@@ -37,12 +37,16 @@ class Meter:
     def publish_simulated_day(self, step):
         simulated_day = simulate(self.min_consumption, self.max_consumption, step)
         for sim_tuple in simulated_day:
-            self.publisher.publish_pv_value(self.meter_id, sim_tuple[0], sim_tuple[1])
+            self.publisher.publish_pv_value(self.meter_id, sim_tuple[0], sim_tuple[1], False)
+        # EOM batch
+        self.publisher.publish_pv_value(self.meter_id, 0, 0, True)
 
     def publish_partial_simulated_day(self, from_timestamp, to_timestamp, step):
         partial_simulated_day = simulate(self.min_consumption, self.max_consumption, from_timestamp, to_timestamp, step)
         for sim_tuple in partial_simulated_day:
-            self.publisher.publish_pv_value(self.meter_id, sim_tuple[0], sim_tuple[1])
+            self.publisher.publish_pv_value(self.meter_id, sim_tuple[0], sim_tuple[1], False)
+        # EOM batch
+        self.publisher.publish_pv_value(self.meter_id, 0, 0, True)
 
     def close_connection(self):
         self.publisher.close_connection()

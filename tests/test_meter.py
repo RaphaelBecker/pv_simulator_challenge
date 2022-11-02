@@ -8,8 +8,8 @@ class TestMeter(unittest.TestCase):
 
     def test_meter_partial(self):
         # start listener first!
-        Meter = meter.Meter("meter_01", "meter_01_exchange")
-        Meter.publish_partial_simulated_day(from_timestamp=0, to_timestamp=5, step=1)
+        Meter = meter.Meter("meter_01", "meter")
+        Meter.publish_partial_simulated_day(from_timestamp=40000, to_timestamp=50000, step=1)
         Meter.close_connection()
 
     def test_meter_whole_day(self):
