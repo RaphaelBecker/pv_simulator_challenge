@@ -1,15 +1,28 @@
 import unittest
-from energy_system import meter
 import matplotlib.pyplot as plt
+
+from pv_simulator_service import meter
 
 
 class TestMeter(unittest.TestCase):
-    def test_meter_general(self):
-        # imput vals are positive from 0 till 86400
-        hours = []
-        simulated_power_consumption = meter.simulate_day_power_consumption(min_consumption=0,
-                                                                                          max_consumption=9000)
 
+    def test_meter_partial(self):
+        # start listener first!
+        Meter = meter.Meter(10)
+        Meter.publish_partial_simulated_day(from_timestamp=0, to_timestamp=5, step=1)
+        Meter.close_connection()
+
+    def test_meter_whole_day(self):
+        # start listener first!
+        Meter = meter.Meter(11)
+        Meter.publish_simulated_day(step=1)
+        Meter.close_connection()
+
+    def test_pv_generation(self):
+        # input values are positive from 0 till 86400 for a whole day
+        hours = []
+        simulated_power_consumption = meter.simulate(min_consumption=0, max_consumption=9000)
+        # Plot values for better visual understanding of the values:
         plt.rcParams["figure.autolayout"] = True
         plt.plot(*zip(*simulated_power_consumption), color="red")
         plt.title("One day power consumption")

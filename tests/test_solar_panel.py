@@ -1,5 +1,5 @@
 import unittest
-from pv_generator import solar_pannel
+from pv_simulator import solar_pannel
 import matplotlib.pyplot as plt
 
 
