@@ -52,4 +52,6 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
    * ```docker pull debian:10-slim```
    * ```docker run --name debian-buster-slim -h 10-slim -e LANG=C.UTF-8 -it -p 15672:15672 -p 5672:5672 debian:10-slim /bin/bash -l```
    * Installations for a fresh Debian OS:
-     * 
+     * ```apt update && apt upgrade --yes```
+     * ```apt install git```
+     * ```apt install nano```
