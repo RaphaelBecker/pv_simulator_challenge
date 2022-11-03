@@ -5,6 +5,7 @@ if [ -d "$DIR" ]; then
   source venv/bin/activate
 else
   echo "Setup dependencies..."
+  cd ..
   echo  "1. Installing python 3.9.7..."
   apt install wget software-properties-common build-essential libnss3-dev zlib1g-dev libgdbm-dev libncurses5-dev   libssl-dev libffi-dev libreadline-dev libsqlite3-dev libbz2-dev
   wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz

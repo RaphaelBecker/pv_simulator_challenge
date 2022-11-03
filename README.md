@@ -52,14 +52,24 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
 ### Setup for a fresh Debian OS:
    * ```docker pull debian:10-slim```
    * ```docker run --name debian-buster-slim -h 10-slim -e LANG=C.UTF-8 -it -p 15672:15672 -p 5672:5672 debian:10-slim /bin/bash -l```
-   * ```apt update && apt upgrade --yes```
-   * ```apt install git```
-   * ```apt install nano```
-   * ```mkdir pv_project```
-   * ```cd pv_project```
-   * ```git clone https://github.com/RaphaelBecker/pv_simulator_challenge.git```
-   * ```chmod u+x setup.sh```
- 
+   * Single commands:
+     * ```apt update && apt upgrade --yes```
+     * ```apt install git```
+     * ```apt install nano```
+     * ```mkdir pv_project```
+     * ```cd pv_project```
+     * ```git clone https://github.com/RaphaelBecker/pv_simulator_challenge.git```
+     * ```cd pv_simulator_challenge```
+     * ```git config user.email "raphael.becker.private@outlook.de"```
+     * ```git config user.name "RaphaelBecker"```
+     * ```chmod u+x setup.sh```
+   * One Command:
+     * apt update && apt upgrade --yes && apt install git && apt install nano && mkdir pv_project && cd pv_project && git clone https://github.com/RaphaelBecker/pv_simulator_challenge.git && cd pv_simulator_challenge && git config user.email "raphael.becker.private@outlook.de" && git config user.name "RaphaelBecker" && chmod u+x setup.sh
+
+### Or Run Dockerfile: (But not working properly)
+   * ```cd pv_simulator_challenge```
+   * ```docker build - < Dockerfile```
+
 ### Dependency installation on debian OS:
    * find out debian version: ```cat /etc/os-release``` -> debian 10
    * Install python 3.9.7:
