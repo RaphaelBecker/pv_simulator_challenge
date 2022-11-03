@@ -48,10 +48,53 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
  * RabbitMQ client lib for python: ```pip install pika``` 
  * Docker Container for RabbitMQ installation: ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
  * In the browser, the rabbitMQ management can be opened via url: ```http://localhost:15672/#/```
- * Docker instructions:
+
+### Setup for a fresh Debian OS:
    * ```docker pull debian:10-slim```
    * ```docker run --name debian-buster-slim -h 10-slim -e LANG=C.UTF-8 -it -p 15672:15672 -p 5672:5672 debian:10-slim /bin/bash -l```
-   * Installations for a fresh Debian OS:
-     * ```apt update && apt upgrade --yes```
-     * ```apt install git```
-     * ```apt install nano```
+   * ```apt update && apt upgrade --yes```
+   * ```apt install git```
+   * ```apt install nano```
+   * ```mkdir pv_project```
+   * ```cd pv_project```
+   * ```git clone https://github.com/RaphaelBecker/pv_simulator_challenge.git```
+   * ```chmod u+x setup.sh```
+ 
+### Dependency installation on debian OS:
+   * find out debian version: ```cat /etc/os-release``` -> debian 10
+   * Install python 3.9.7:
+     * install dependency packages:
+       * ```apt install wget software-properties-common build-essential libnss3-dev zlib1g-dev libgdbm-dev libncurses5-dev   libssl-dev libffi-dev libreadline-dev libsqlite3-dev libbz2-dev```
+     * Pull 3.9.7:
+       * ```wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz```
+       * ```tar xvf Python-3.9.7.tgz```
+       * ```cd Python-3.9.7/```
+     * Run configuration command:
+       * ```./configure --enable-optimizations```
+     * Build:
+       * ```make altinstall```
+     * Check installation:
+       * ```python3.9 --version```
+     * Upgrade pip:
+       * ```python3.9 -m pip install --upgrade pip```
+   * Install RabbitMQ:
+   * ```cd ..``` 
+   * Install erlang:
+     * ```wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_23.1.5-1~debian~stretch_amd64.deb```
+     * ```dpkg -i esl-erlang_23.1.5-1~debian~stretch_amd64.deb```
+     * ```apt update```
+     * ```apt install erlang erlang-nox```
+     * ```apt --fix-broken install```
+     * ```add-apt-repository 'deb http://www.rabbitmq.com/debian/ testing main'```
+     * ```apt update```
+   * Install enable rabbit mq server:
+     * ```apt install rabbitmq-server```
+     * ```systemctl enable rabbitmq-server```
+     * ```systemctl start rabbitmq-server```
+     * ```cd ..```
+     
+   * Finally, Setup application:
+     * ```python3.9 -m venv venv```
+     * ```source venv/bin/activate```
+
+### Or run setup.sh
