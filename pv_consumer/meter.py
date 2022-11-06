@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from pv_simulator_service import publisher
+import publisher
 
 
 def get_power_per_second(second: int, min_consumption: int, max_consumption: int) -> tuple[int, float]:

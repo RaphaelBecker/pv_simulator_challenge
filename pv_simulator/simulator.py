@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import csv
 import json
-import os
 
 import solar_pannel
 import listener
@@ -24,28 +23,28 @@ Listener = listener.Listener(exchange_name)
 Listener.listen_for_packages()
 while True:
         user_input = input("\nWaiting for user input, type: "
-                           "\n * a to show received messages "
-                           "\n * b for delete received messages "
-                           "\n * c compute solar panel - meter difference "
-                           "\n * d save messages to csv "
+                           "\n * '1' to show received messages "
+                           "\n * '2' for delete received messages "
+                           "\n * '3' compute solar panel - meter difference "
+                           "\n * '4' save messages to csv "
                            "\n")
         if Listener.receiving:
             print("Listener receiving messages right now. Waiting for end of batch, please wait!")
         else:
-            if user_input == "a":
+            if user_input == "1":
                 for message in Listener.received_messages:
                     print(message)
-            if user_input == "b":
+            if user_input == "2":
                 Listener.delete_messages()
                 print("deleted:")
                 print(Listener.received_messages)
-            if user_input == "c":
+            if user_input == "3":
                 for message in Listener.received_messages:
                     message_dict = json.loads(message.decode())
                     panel_value = solar_pannel.get_solar_power(message_dict['timestamp'])
                     panel_meter_diff = round((panel_value - message_dict['meter_value']), 2)
                     print(f"ts: {message_dict['timestamp']} diff: {panel_meter_diff}")
-            if user_input == "d":
+            if user_input == "4":
                 cast_buffer = []
                 for message in Listener.received_messages:
                     message_dict = json.loads(message.decode())

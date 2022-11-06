@@ -1,7 +1,7 @@
 import unittest
 import matplotlib.pyplot as plt
 
-from pv_simulator_service import meter
+from pv_consumer import meter
 
 
 class TestMeter(unittest.TestCase):

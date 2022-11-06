@@ -10,7 +10,7 @@ class Publisher:
             pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange=self.exchange, exchange_type=self.exchange_type)
-        print(f"created Publisher with exchange: {self.exchange} {self.exchange_type}")
+        print(f"created Publisher with exchange: {self.exchange} and exchange type: {self.exchange_type}")
 
     def publish_pv_value(self, meter_id: str, timestamp: int, meter_value: float, eom: bool):
         if eom:

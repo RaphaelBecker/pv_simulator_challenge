@@ -43,12 +43,27 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
      * Open cmd: ```docker pull debian:10-slim``` 
      * List running containers: ```docker ps -a```
      * Stopped because too much effort
+     
+### Testing Publisher and Receiver on debian:
+#### build a dockerfile:
+ * docker build -t pv:debian10-slim .
+#### Run a container from image:
+ * docker run -it pv:debian10-slim
+
+### Testing whole application with WSL Ubuntu:
+#### Steps:
+ * start rabbitMQ via docker:
+   * ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
+ * Create instance of simulator in WSL shell
+
+
+## Backup Commands Research
 
 ### Installations regarding RabbitMQ:
  * RabbitMQ client lib for python: ```pip install pika``` 
  * Docker Container for RabbitMQ installation: ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
  * In the browser, the rabbitMQ management can be opened via url: ```http://localhost:15672/#/```
-
+ 
 ### Setup for a fresh Debian OS:
    * ```docker pull debian:10-slim```
    * ```docker run --name debian-buster-slim -h 10-slim -e LANG=C.UTF-8 -it -p 15672:15672 -p 5672:5672 debian:10-slim /bin/bash -l```
@@ -87,7 +102,8 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
        * ```python3.9 --version```
      * Upgrade pip:
        * ```python3.9 -m pip install --upgrade pip```
-   * Install RabbitMQ:
+
+   * Install RabbitMQ (Not working!):
    * ```cd ..``` 
    * Install erlang:
      * ```wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_23.1.5-1~debian~stretch_amd64.deb```
@@ -106,5 +122,3 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
    * Finally, Setup application:
      * ```python3.9 -m venv venv```
      * ```source venv/bin/activate```
-
-### Or run setup.sh
