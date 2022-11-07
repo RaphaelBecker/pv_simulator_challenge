@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 import meter
 
+"""
+This is the message producer. It provides a minimalistic cli for sending messages to the specified exchange.
+In order to run this cli, the rabbitMQ Broker has to be running first.
+"""
+
 print("Started message producer!")
 meter_id = input('Enter meter id:\n')
 exchange_name = input('Enter exchange name:\n')

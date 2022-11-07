@@ -1,10 +1,13 @@
 import pika
 import threading
-import json
 
 
 class Listener:
     def __init__(self, exchange: str, exchange_type="fanout"):
+        """
+        :param exchange: Name of exchange where to listen to
+        :param exchange_type: "topic", "fanout", "header". !Only "fanout" supported here!
+        """
         self.received_messages = []
         self.exchange = exchange
         self.exchange_type = exchange_type

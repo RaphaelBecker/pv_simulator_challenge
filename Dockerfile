@@ -17,4 +17,4 @@ COPY pv_consumer /pv_challenge/pv_simulator_service
 COPY ./tests /pv_challenge/tests
 COPY ./README.md /pv_challenge/README.md
 COPY ./requirements.txt /pv_challenge/requirements.txt
-COPY ./setup.sh /pv_challenge/setup.sh
+COPY ./setup_debian.sh /pv_challenge/setup_debian.sh

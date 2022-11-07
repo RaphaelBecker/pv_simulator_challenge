@@ -1,4 +1,4 @@
-# pv_simulator_challenge
+# pv_simulator_challenge problem statement:
 This is a coding challenge as (senior)-software engineer at mobility house 
 
 
@@ -11,7 +11,7 @@ The next diagram describes the interactions of the PV simulator service and othe
  
 METER →(Broker) → PV SIMULATOR →[OUTPUT]
  
-### A brief description of the components:
+### A brief description of the components
  
  * Meter: This entity produces message to the broker between 0 and 9000 Watts -not kW!- and the cadence of messages produced is one per second. The rest of the implementation is up to you, as long as these two conditions are met. The idea is to simulate readings of the electrical consumption of our building.
  * PV generator: It must listen to the broker for the meter values, generate a simulated PV power value based on our curve and subtract this value to the meter value, outputting the result.
@@ -29,44 +29,60 @@ A few more requirements
  * Delivery Date: Around 10 working days.
  * If anything is not defined or clear in this document, then feel free to be creative and define it yourself! Just remember to document it for us.
 
-### RabbitMQ
+# pv_simulator_challenge own notes
+## How to run the application on Linux
+### Prerequisites
+ * Python 3.9 installed:
+   * ```sudo apt install python3.9```
+   * ```sudo apt install python3.9-venv```
+ * Docker installed for RabbitMQ 
+
+### Steps
+ * start rabbitMQ via Docker:
+   * ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
+ * Create instance of message_producer in pv_consumer folder:
+   * Open shell
+   * active venv in project root by: ```source venv/bin/activate```
+   * Navigate to pv_consumer folder in project
+   * run ```python3.9 message_producer.py```
+ * Create instance of simulator in pv_simulator folder:
+   * Open shell
+   * active venv in project root by: ```source venv/bin/activate```
+   * Navigate to pv_simulator folder in project
+   * run ```python3.9 simulator.py```
+
+### RabbitMQ Research
 Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
  * Routing key and binding key: Exchange is bound via routing key to a queue
  * Exchange type Topic: Queue receives messages from exchange if routing keys partially match binding key
  * Exchange type Fanout: If a queue is bound to an exchange, it will receive the message regardless of any key
  * Exchange type Header: Allows route messages based on header values
 
-### What I have done
- * Kick start from: https://www.rabbitmq.com/tutorials/tutorial-three-python.html
- * Using a Docker as a dev container, because this app will be tested on a debian based OS
-   * Example by: https://jolthgs.wordpress.com/2019/09/25/create-a-debian-container-in-docker-for-development/
-     * Open cmd: ```docker pull debian:10-slim``` 
-     * List running containers: ```docker ps -a```
-     * Stopped because too much effort
-     
-### Testing Publisher and Receiver on debian:
-#### build a dockerfile:
- * docker build -t pv:debian10-slim .
-#### Run a container from image:
- * docker run -it pv:debian10-slim
-
-### Testing whole application with WSL Ubuntu:
-#### Steps:
- * start rabbitMQ via docker:
-   * ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
- * Create instance of simulator in WSL shell
-
-
 ## Backup Commands Research
+This is my personal research documentation
+## Testing Publisher and Receiver on debian inside a docker container
+### build a dockerfile
+ * ```docker build -t pv:debian10-slim .```
+### Run a container from image
+ * ```docker run -it pv:debian10-slim```
+### Other commands
+ * list container: ```docker ps -a```
+ * list images: ```docker images```
+ * remove image: ```docker rmi <image_id>```
+ * remove container: ```docker rm <container_id>```
+### Installation
+ * ```chmod u+x setup_debian.sh```
+ * ```./setup_debian.sh```
 
-### Installations regarding RabbitMQ:
+### Installations regarding RabbitMQ
  * RabbitMQ client lib for python: ```pip install pika``` 
  * Docker Container for RabbitMQ installation: ```docker run --rm -it --hostname my_rabbitMQ -p 15672:15672 -p 5672:5672 rabbitmq:3-management```
  * In the browser, the rabbitMQ management can be opened via url: ```http://localhost:15672/#/```
+ * User name and pw: guest
  
-### Setup for a fresh Debian OS:
+### Setup for a fresh Debian OS
    * ```docker pull debian:10-slim```
-   * ```docker run --name debian-buster-slim -h 10-slim -e LANG=C.UTF-8 -it -p 15672:15672 -p 5672:5672 debian:10-slim /bin/bash -l```
+   * ```docker run --name debian-buster-slim -h 10-slim -e LANG=C.UTF-8 -it debian:10-slim /bin/bash -l```
    * Single commands:
      * ```apt update && apt upgrade --yes```
      * ```apt install git```
@@ -79,13 +95,10 @@ Fundamentals: https://www.rabbitmq.com/tutorials/amqp-concepts.html
      * ```git config user.name "RaphaelBecker"```
      * ```chmod u+x setup.sh```
    * One Command:
-     * apt update && apt upgrade --yes && apt install git && apt install nano && mkdir pv_project && cd pv_project && git clone https://github.com/RaphaelBecker/pv_simulator_challenge.git && cd pv_simulator_challenge && git config user.email "raphael.becker.private@outlook.de" && git config user.name "RaphaelBecker" && chmod u+x setup.sh
+     * apt update && apt upgrade --yes && apt install git && apt install nano && mkdir pv_project && cd pv_project && git clone https://github.com/RaphaelBecker/pv_simulator_challenge.git && cd pv_simulator_challenge && git config user.email "my_email@mail.de" && git config user.name "<Name>" && chmod u+x setup.sh
+     
 
-### Or Run Dockerfile: (But not working properly)
-   * ```cd pv_simulator_challenge```
-   * ```docker build - < Dockerfile```
-
-### Dependency installation on debian OS:
+### Dependency installation on debian OS
    * find out debian version: ```cat /etc/os-release``` -> debian 10
    * Install python 3.9.7:
      * install dependency packages:
