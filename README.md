@@ -30,12 +30,18 @@ A few more requirements
  * If anything is not defined or clear in this document, then feel free to be creative and define it yourself! Just remember to document it for us.
 
 # pv_simulator_challenge own notes
-## How to run the application on Linux
-### Prerequisites
- * Python 3.9 installed:
-   * ```sudo apt install python3.9```
-   * ```sudo apt install python3.9-venv```
- * Docker installed for RabbitMQ 
+## How to run the application
+### Prerequisites on Linux Ubuntu
+ * Prepare via setup script in project root:
+ * ```chmod u+x setup_ubuntu.sh```
+ * ```sudo ./setup_ubuntu.sh```
+ * Docker installed to run RabbitMQ container
+
+### Prerequisites on Linux Debian
+ * Prepare via setup in project root:
+   * ```chmod u+x setup_debian.sh```
+   * ```sudo ./setup_debian.sh```
+ * Docker installed to run RabbitMQ container
 
 ### Steps
  * start rabbitMQ via Docker:
