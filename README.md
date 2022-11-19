@@ -1,5 +1,5 @@
 # pv_simulator_challenge problem statement:
-This is a coding challenge as (senior)-software engineer at mobility house 
+This is a coding challenge as (senior)-software engineer at a company
 
 
 ## PV Simulator Challenge
