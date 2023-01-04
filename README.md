@@ -1,5 +1,5 @@
 # pv_simulator_challenge problem statement:
-This is a coding challenge as (senior)-software engineer at a company
+This is a sample coding challenge as (senior)-software engineer using Docker, Shell Skript, Python, RabbitMQ
 
 
 ## PV Simulator Challenge
